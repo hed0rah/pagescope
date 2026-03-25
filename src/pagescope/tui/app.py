@@ -8,7 +8,7 @@ from typing import Any
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
-from textual.widgets import Footer, Header, Input, Label, Static, TabbedContent, TabPane
+from textual.widgets import Button, Footer, Header, Input, Label, Static, TabbedContent, TabPane
 
 from pagescope.data import load_user_agents
 from pagescope.tui.console import ConsoleTab
@@ -46,6 +46,15 @@ class PageScopeApp(App):
         Binding("h", "export_har", "HAR Export", show=True),
         Binding("l", "load_har", "Load HAR", show=True),
         Binding("k", "toggle_preserve_log", description="Keep Log", show=False),
+        Binding("F5", "refresh_page", "Refresh", show=False, priority=True),
+        Binding("alt+left", "go_back", "Back", show=False, priority=True),
+        Binding("1", "switch_tab_1", show=False),
+        Binding("2", "switch_tab_2", show=False),
+        Binding("3", "switch_tab_3", show=False),
+        Binding("4", "switch_tab_4", show=False),
+        Binding("5", "switch_tab_5", show=False),
+        Binding("6", "switch_tab_6", show=False),
+        Binding("7", "switch_tab_7", show=False),
         Binding("question_mark", "show_legend", "Legend", show=True),
     ]
 
@@ -74,6 +83,9 @@ class PageScopeApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         with Horizontal(id="header-bar"):
+            yield Button("\u25c0", id="nav-back", classes="nav-btn")
+            yield Button("\u25b6", id="nav-forward", classes="nav-btn")
+            yield Button("\u21bb", id="nav-refresh", classes="nav-btn")
             yield Input(value=self._url, id="url-input", placeholder="enter URL...")
             yield Input(placeholder="Path to .har file...", id="har-input", classes="hidden")
             yield Label("connecting...", id="status-label")
@@ -517,6 +529,14 @@ class PageScopeApp(App):
         try:
             report = await session.performance.analyze()
             perf_tab.load_report(report)
+            # feed FCP to network tab for waterfall ruler
+            if report.web_vitals and report.web_vitals.fcp_ms:
+                try:
+                    net_tab = self.query_one(NetworkTab)
+                    net_tab._fcp_ms = report.web_vitals.fcp_ms
+                    net_tab._update_waterfall_header()
+                except Exception:
+                    pass
         except Exception:
             pass
 
@@ -1127,6 +1147,66 @@ class PageScopeApp(App):
             w.styles.background = t["bg-card"]
 
         self.refresh(layout=True)
+
+    async def action_refresh_page(self) -> None:
+        """Reload the current page."""
+        if not self._session or not self._session.page or self._navigating:
+            return
+        await self._navigate_to(self._url)
+
+    async def action_go_back(self) -> None:
+        """Navigate back in browser history."""
+        if not self._session or not self._session.page or self._navigating:
+            return
+        try:
+            if not self._preserve_log:
+                self.action_clear()
+            await self._session.page.go_back(timeout=10000)
+            new_url = self._session.page.url
+            self._url = new_url
+            self.query_one("#url-input", Input).value = new_url
+        except Exception:
+            pass
+
+    async def action_go_forward(self) -> None:
+        """Navigate forward in browser history."""
+        if not self._session or not self._session.page or self._navigating:
+            return
+        try:
+            if not self._preserve_log:
+                self.action_clear()
+            await self._session.page.go_forward(timeout=10000)
+            new_url = self._session.page.url
+            self._url = new_url
+            self.query_one("#url-input", Input).value = new_url
+        except Exception:
+            pass
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        btn_id = event.button.id
+        if btn_id == "nav-back":
+            self.run_worker(self.action_go_back())
+        elif btn_id == "nav-forward":
+            self.run_worker(self.action_go_forward())
+        elif btn_id == "nav-refresh":
+            self.run_worker(self.action_refresh_page())
+
+    _TAB_IDS = ["tab-network", "tab-console", "tab-performance", "tab-security", "tab-elements", "tab-cookies", "tab-websocket"]
+
+    def _switch_tab(self, index: int) -> None:
+        try:
+            tc = self.query_one(TabbedContent)
+            tc.active = self._TAB_IDS[index]
+        except Exception:
+            pass
+
+    def action_switch_tab_1(self) -> None: self._switch_tab(0)
+    def action_switch_tab_2(self) -> None: self._switch_tab(1)
+    def action_switch_tab_3(self) -> None: self._switch_tab(2)
+    def action_switch_tab_4(self) -> None: self._switch_tab(3)
+    def action_switch_tab_5(self) -> None: self._switch_tab(4)
+    def action_switch_tab_6(self) -> None: self._switch_tab(5)
+    def action_switch_tab_7(self) -> None: self._switch_tab(6)
 
     def action_goto_url(self) -> None:
         """Focus the address bar for navigation."""

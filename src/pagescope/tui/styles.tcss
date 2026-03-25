@@ -16,6 +16,21 @@ Screen {
     color: #e2e8f0;
 }
 
+.nav-btn {
+    width: 3;
+    height: 1;
+    min-width: 0;
+    background: transparent;
+    color: #94a3b8;
+    border: none;
+    padding: 0;
+}
+
+.nav-btn:hover {
+    color: #e2e8f0;
+    background: #334155;
+}
+
 #url-input {
     width: 1fr;
     height: 1;
