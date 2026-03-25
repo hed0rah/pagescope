@@ -7,6 +7,8 @@ Chrome DevTools in your terminal. A real-time TUI that streams network requests,
 
 ## What It Does
 
+https://github.com/user-attachments/assets/529c4cb7-a178-4156-8b4e-d399594ba364
+
 PageScope connects to Chrome/Edge and gives you a full DevTools experience rendered in the terminal:
 
 - **Network tab** with live request streaming, waterfall timing visualization, headers/timing/preview detail panels
