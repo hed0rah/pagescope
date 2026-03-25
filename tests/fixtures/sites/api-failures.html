@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Failures Test Page</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .status.error { background: #fee; border: 1px solid #c00; }
+        .status.loading { background: #eef; border: 1px solid #00c; }
+        .status.ok { background: #efe; border: 1px solid #0c0; }
+        h2 { margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <h1>API Failures Test Page</h1>
+    <p>This page makes several API calls that fail in different ways.</p>
+
+    <h2>404 — Wrong Endpoint</h2>
+    <div id="result-404" class="status loading">Loading...</div>
+
+    <h2>500 — Server Error</h2>
+    <div id="result-500" class="status loading">Loading...</div>
+
+    <h2>CORS — Cross-Origin Blocked</h2>
+    <div id="result-cors" class="status loading">Loading...</div>
+
+    <h2>Timeout — Slow API</h2>
+    <div id="result-timeout" class="status loading">Loading...</div>
+
+    <h2>DNS — Nonexistent Domain</h2>
+    <div id="result-dns" class="status loading">Loading...</div>
+
+    <h2>JSON Parse Error</h2>
+    <div id="result-json" class="status loading">Loading...</div>
+
+    <h2>Mixed Content (HTTP from HTTPS)</h2>
+    <div id="result-mixed" class="status loading">Loading...</div>
+
+    <script>
+        function setResult(id, text, isError) {
+            const el = document.getElementById(id);
+            el.textContent = text;
+            el.className = 'status ' + (isError ? 'error' : 'ok');
+        }
+
+        // 404 — endpoint doesn't exist
+        fetch('/api/v1/nonexistent-endpoint')
+            .then(r => {
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                return r.json();
+            })
+            .then(data => setResult('result-404', JSON.stringify(data), false))
+            .catch(err => setResult('result-404', '404: ' + err.message, true));
+
+        // 500 — server error
+        fetch('https://httpstat.us/500')
+            .then(r => {
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                return r.text();
+            })
+            .then(data => setResult('result-500', data, false))
+            .catch(err => setResult('result-500', '500: ' + err.message, true));
+
+        // CORS — no Access-Control-Allow-Origin header
+        fetch('https://httpstat.us/200', { mode: 'cors' })
+            .then(r => r.text())
+            .then(data => setResult('result-cors', data, false))
+            .catch(err => setResult('result-cors', 'CORS: ' + err.message, true));
+
+        // Timeout simulation via AbortController
+        const controller = new AbortController();
+        setTimeout(() => controller.abort(), 2000);
+        fetch('https://httpstat.us/200?sleep=10000', { signal: controller.signal })
+            .then(r => r.text())
+            .then(data => setResult('result-timeout', data, false))
+            .catch(err => setResult('result-timeout', 'Timeout: ' + err.message, true));
+
+        // DNS failure — domain doesn't exist
+        fetch('https://this-domain-absolutely-does-not-exist-xyz123.com/api')
+            .then(r => r.text())
+            .then(data => setResult('result-dns', data, false))
+            .catch(err => setResult('result-dns', 'DNS: ' + err.message, true));
+
+        // JSON parse error — server returns HTML instead of JSON
+        fetch('https://example.com')
+            .then(r => r.json())  // Will fail: example.com returns HTML
+            .then(data => setResult('result-json', JSON.stringify(data), false))
+            .catch(err => setResult('result-json', 'Parse: ' + err.message, true));
+
+        // Unhandled promise rejection (no .catch)
+        fetch('/api/unhandled-endpoint').then(r => {
+            if (!r.ok) throw new Error('Unhandled API error: ' + r.status);
+            return r.json();
+        });
+
+        // Multiple rapid-fire requests to same failing endpoint
+        for (let i = 0; i < 5; i++) {
+            fetch('/api/rapid-fire/' + i).catch(() => {});
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1335 @@
+/* PageScope TUI -- DevTools dark theme */
+
+Screen {
+    background: #0f172a;
+}
+
+#header-bar {
+    dock: top;
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    padding: 0 1;
+}
+
+#header-bar Label {
+    color: #e2e8f0;
+}
+
+#url-input {
+    width: 1fr;
+    height: 1;
+    background: transparent;
+    border: none;
+    color: #6366f1;
+}
+
+#url-input:focus {
+    background: #162036;
+    color: #e2e8f0;
+}
+
+#url-input.hidden {
+    display: none;
+}
+
+#har-input {
+    width: 1fr;
+    height: 1;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+#har-input.hidden {
+    display: none;
+}
+
+#status-label {
+    color: #94a3b8;
+    width: 1fr;
+}
+
+/* Toggle indicators -- right side of header bar */
+.toggle-off {
+    color: #334155;
+    margin-left: 1;
+    padding: 0 1;
+}
+
+.toggle-on {
+    color: #0f172a;
+    background: #f59e0b;
+    text-style: bold;
+    margin-left: 1;
+    padding: 0 1;
+}
+
+/* Tab content area */
+ContentSwitcher {
+    height: 1fr;
+}
+
+/* ── Unified button bar styles ──
+   All sub-tab and filter buttons use the same text+underline style
+   to match the top-level TabbedContent tabs. */
+
+.tab-bar {
+    height: 3;
+    background: #0f172a;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+.tab-bar Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+.tab-bar Button:hover {
+    color: #e2e8f0;
+    background: transparent;
+}
+
+.tab-bar Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+/* Filter bars -- slightly different bg to separate from view tabs */
+.filter-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+.filter-bar Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+.filter-bar Button:hover {
+    color: #e2e8f0;
+    background: transparent;
+}
+
+.filter-bar Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+/* Search inputs in bars */
+.filter-bar Input,
+.tab-bar Input {
+    width: 30;
+    height: 1;
+    dock: right;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+/* ── Network Tab ── */
+
+#network-container {
+    height: 1fr;
+}
+
+#filter-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#filter-bar Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#filter-bar Button:hover {
+    color: #e2e8f0;
+    background: transparent;
+}
+
+#filter-bar Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#filter-input {
+    width: 30;
+    height: 1;
+    dock: right;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+/* Main split: request table + detail panel */
+#main-split {
+    height: 1fr;
+}
+
+/* Request table */
+#request-table {
+    height: 1fr;
+    min-height: 10;
+}
+
+DataTable {
+    height: 1fr;
+}
+
+DataTable > .datatable--header {
+    background: #1e293b;
+    color: #94a3b8;
+    text-style: bold;
+}
+
+DataTable > .datatable--cursor {
+    background: #334155;
+}
+
+DataTable > .datatable--even-row {
+    background: #0f172a;
+}
+
+DataTable > .datatable--odd-row {
+    background: #131c2e;
+}
+
+/* Detail panel */
+#detail-panel {
+    height: 12;
+    background: #1e293b;
+    border-top: solid #334155;
+    display: none;
+}
+
+#detail-panel.visible {
+    display: block;
+}
+
+#detail-tabs {
+    height: 3;
+    background: #0f172a;
+    border-bottom: solid #334155;
+    layout: horizontal;
+}
+
+#detail-tabs Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#detail-tabs Button:hover {
+    color: #e2e8f0;
+}
+
+#detail-tabs Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#detail-content {
+    height: 1fr;
+    padding: 1;
+    overflow-y: auto;
+}
+
+#detail-content Static {
+    color: #e2e8f0;
+}
+
+/* Summary bar */
+#summary-bar {
+    dock: bottom;
+    height: 1;
+    background: #1e293b;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#summary-bar Label {
+    color: #94a3b8;
+    margin-right: 3;
+}
+
+/* ── Console Tab ── */
+
+#console-filter-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#console-filter-bar Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#console-filter-bar Button:hover {
+    color: #e2e8f0;
+    background: transparent;
+}
+
+#console-filter-bar Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#console-search {
+    width: 30;
+    height: 1;
+    dock: right;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+#console-main {
+    height: 1fr;
+}
+
+#console-table {
+    height: 1fr;
+    min-height: 10;
+}
+
+#console-detail {
+    height: 12;
+    background: #1e293b;
+    border-top: solid #334155;
+    display: none;
+    padding: 1;
+    overflow-y: auto;
+}
+
+#console-detail.visible {
+    display: block;
+}
+
+#console-detail-content {
+    color: #e2e8f0;
+}
+
+/* Console eval input bar */
+#console-input-bar {
+    dock: bottom;
+    height: 3;
+    background: #131c2e;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#console-input-bar.hidden {
+    display: none;
+}
+
+#console-prompt {
+    width: 3;
+    height: 3;
+    color: #22d3ee;
+    text-style: bold;
+    content-align-vertical: middle;
+    padding: 1 0 0 0;
+}
+
+#console-eval-input {
+    width: 1fr;
+    height: 1;
+    background: #0f172a;
+    border: none;
+    color: #e2e8f0;
+}
+
+/* Editor toggle buttons -- minimal style */
+.editor-btn {
+    width: 5;
+    height: 3;
+    background: #1e293b;
+    color: #94a3b8;
+    border: none;
+    min-width: 0;
+    padding: 0 1;
+}
+
+#console-expand-btn {
+    dock: right;
+    width: 3;
+    height: 1;
+    color: #94a3b8;
+    background: #1e293b;
+    text-align: center;
+    padding: 0;
+}
+
+#console-expand-btn:hover {
+    color: #e2e8f0;
+    background: #334155;
+}
+
+.editor-btn:hover {
+    color: #e2e8f0;
+    background: #334155;
+}
+
+/* Expanded JS editor panel */
+#console-editor-panel {
+    dock: bottom;
+    height: 50%;
+    background: #131c2e;
+    border-top: solid #334155;
+}
+
+#console-editor-panel.hidden {
+    display: none;
+}
+
+#console-editor-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#console-editor-label {
+    width: 1fr;
+    height: 3;
+    color: #22d3ee;
+    content-align-vertical: middle;
+    padding: 1 0 0 0;
+}
+
+#console-editor-textarea {
+    height: 1fr;
+    background: #0f172a;
+}
+
+#console-summary {
+    dock: bottom;
+    height: 1;
+    background: #1e293b;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#console-summary Label {
+    color: #94a3b8;
+    margin-right: 3;
+}
+
+/* ── Security Tab ── */
+
+#security-overview {
+    height: auto;
+    max-height: 8;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    padding: 1 2;
+}
+
+#security-state-display {
+    color: #e2e8f0;
+    text-style: bold;
+}
+
+#tls-summary {
+    color: #94a3b8;
+}
+
+#security-view-tabs {
+    height: 3;
+    background: #0f172a;
+    border-bottom: solid #334155;
+    layout: horizontal;
+}
+
+#security-view-tabs Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#security-view-tabs Button:hover {
+    color: #e2e8f0;
+}
+
+#security-view-tabs Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#security-cert-view {
+    height: 1fr;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+#security-cert-view.hidden {
+    display: none;
+}
+
+#cert-detail-content {
+    color: #e2e8f0;
+}
+
+#security-headers-view {
+    height: 1fr;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+#security-headers-view.hidden {
+    display: none;
+}
+
+#headers-scorecard-content {
+    color: #e2e8f0;
+}
+
+#security-main.hidden {
+    display: none;
+}
+
+#security-filter-bar.hidden {
+    display: none;
+}
+
+#security-filter-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#security-filter-bar Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#security-filter-bar Button:hover {
+    color: #e2e8f0;
+    background: transparent;
+}
+
+#security-filter-bar Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#security-search {
+    width: 30;
+    height: 1;
+    dock: right;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+#security-main {
+    height: 1fr;
+}
+
+#security-table {
+    height: 1fr;
+    min-height: 8;
+}
+
+#security-detail {
+    height: 12;
+    background: #1e293b;
+    border-top: solid #334155;
+    display: none;
+    padding: 1;
+    overflow-y: auto;
+}
+
+#security-detail.visible {
+    display: block;
+}
+
+#security-detail-content {
+    color: #e2e8f0;
+}
+
+#security-summary {
+    dock: bottom;
+    height: 1;
+    background: #1e293b;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#security-summary Label {
+    color: #94a3b8;
+    margin-right: 3;
+}
+
+/* ── Performance Tab ── */
+
+#perf-vitals-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#perf-vitals-bar Label {
+    color: #e2e8f0;
+    margin-right: 2;
+    height: 3;
+    content-align: center middle;
+}
+
+#perf-view-tabs {
+    height: 3;
+    background: #0f172a;
+    border-bottom: solid #334155;
+    layout: horizontal;
+}
+
+#perf-view-tabs Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#perf-view-tabs Button:hover {
+    color: #e2e8f0;
+}
+
+#perf-view-tabs Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#perf-vitals-view {
+    height: 1fr;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+#perf-vitals-content {
+    color: #e2e8f0;
+}
+
+#perf-metrics-view {
+    height: 1fr;
+}
+
+#perf-metrics-view.hidden {
+    display: none;
+}
+
+#perf-resources-view {
+    height: 1fr;
+}
+
+#perf-resources-view.hidden {
+    display: none;
+}
+
+#perf-cpu-controls {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+.cpu-btn {
+    height: 3;
+    background: #6366f1;
+    color: #ffffff;
+    border: none;
+    text-style: bold;
+    min-width: 0;
+    margin-right: 1;
+}
+
+.cpu-btn:hover {
+    background: #818cf8;
+}
+
+.cpu-btn.hidden {
+    display: none;
+}
+
+#cpu-stop-btn {
+    background: #ef4444;
+}
+
+#cpu-stop-btn:hover {
+    background: #f87171;
+}
+
+#cpu-status-label {
+    color: #94a3b8;
+    height: 3;
+    content-align: center middle;
+    margin-left: 2;
+}
+
+#perf-cpu-view {
+    height: 1fr;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+#perf-cpu-view.hidden {
+    display: none;
+}
+
+#perf-cpu-content {
+    color: #e2e8f0;
+}
+
+#perf-recs-view {
+    height: 1fr;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+#perf-recs-view.hidden {
+    display: none;
+}
+
+#perf-recs-content {
+    color: #e2e8f0;
+}
+
+#perf-flow-view {
+    height: 1fr;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+#perf-flow-view.hidden {
+    display: none;
+}
+
+#perf-flow-content {
+    color: #e2e8f0;
+}
+
+#perf-vitals-view.hidden {
+    display: none;
+}
+
+#perf-summary {
+    dock: bottom;
+    height: 1;
+    background: #1e293b;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#perf-summary Label {
+    color: #94a3b8;
+    margin-right: 3;
+}
+
+/* ── Elements Tab ── */
+
+#elements-overview {
+    height: auto;
+    max-height: 6;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    padding: 1 2;
+}
+
+#elements-overview Static {
+    color: #e2e8f0;
+}
+
+#dom-stats-display {
+    color: #e2e8f0;
+}
+
+#elements-view-tabs {
+    height: 3;
+    background: #0f172a;
+    border-bottom: solid #334155;
+    layout: horizontal;
+}
+
+#elements-view-tabs Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#elements-view-tabs Button:hover {
+    color: #e2e8f0;
+}
+
+#elements-view-tabs Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#elements-search-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#elements-search-bar.hidden {
+    display: none;
+}
+
+#elements-selector-input {
+    width: 1fr;
+    height: 1;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+#elements-dom-view {
+    height: 1fr;
+    padding: 0;
+    overflow-y: auto;
+}
+
+#elements-dom-content {
+    height: auto;
+    max-height: 12;
+    padding: 1 2;
+}
+
+#dom-tree {
+    height: 1fr;
+    background: #0f172a;
+    padding: 0 1;
+}
+
+#dom-tree > .tree--cursor {
+    background: #334155;
+}
+
+#dom-tree > .tree--highlight-line {
+    background: transparent;
+}
+
+#dom-tree > .tree--guides {
+    color: #334155;
+}
+
+#elements-dom-content {
+    color: #e2e8f0;
+}
+
+#elements-dom-view.hidden {
+    display: none;
+}
+
+#elements-css-view {
+    height: 1fr;
+}
+
+#elements-css-view.hidden {
+    display: none;
+}
+
+#elements-issues-view {
+    height: 1fr;
+}
+
+#elements-issues-view.hidden {
+    display: none;
+}
+
+#elements-search-view {
+    height: 1fr;
+}
+
+#elements-search-view.hidden {
+    display: none;
+}
+
+#elements-hidden-view {
+    height: 1fr;
+}
+
+#elements-hidden-view.hidden {
+    display: none;
+}
+
+#elements-comments-view {
+    height: 1fr;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+#elements-comments-view.hidden {
+    display: none;
+}
+
+#comments-content {
+    color: #e2e8f0;
+}
+
+#elements-endpoints-view {
+    height: 1fr;
+}
+
+#elements-endpoints-view.hidden {
+    display: none;
+}
+
+#elements-search-detail {
+    height: 12;
+    background: #1e293b;
+    border-top: solid #334155;
+    display: none;
+    padding: 1;
+    overflow-y: auto;
+}
+
+#elements-search-detail.visible {
+    display: block;
+}
+
+#elements-search-detail-content {
+    color: #e2e8f0;
+}
+
+#elements-summary {
+    dock: bottom;
+    height: 1;
+    background: #1e293b;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#elements-summary Label {
+    color: #94a3b8;
+    margin-right: 3;
+}
+
+/* Placeholder tabs */
+.placeholder-tab {
+    height: 1fr;
+    content-align: center middle;
+    color: #475569;
+}
+
+/* ── Cookies Tab ── */
+
+#cookies-overview {
+    height: auto;
+    max-height: 4;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    padding: 1 2;
+}
+
+#cookies-stats-display {
+    color: #e2e8f0;
+}
+
+#cookies-filter-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#cookies-filter-bar Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#cookies-filter-bar Button:hover {
+    color: #e2e8f0;
+    background: transparent;
+}
+
+#cookies-filter-bar Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#cookies-search {
+    width: 30;
+    height: 1;
+    dock: right;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+#cookies-main {
+    height: 1fr;
+}
+
+#cookies-table {
+    height: 1fr;
+    min-height: 8;
+}
+
+#cookies-detail {
+    height: 12;
+    background: #1e293b;
+    border-top: solid #334155;
+    display: none;
+    padding: 1;
+    overflow-y: auto;
+}
+
+#cookies-detail.visible {
+    display: block;
+}
+
+#cookies-detail-content {
+    color: #e2e8f0;
+}
+
+#cookies-summary {
+    dock: bottom;
+    height: 1;
+    background: #1e293b;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#cookies-summary Label {
+    color: #94a3b8;
+    margin-right: 3;
+}
+
+/* ── Body Search (Network Tab) ── */
+
+#body-search-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#body-search-bar.hidden {
+    display: none;
+}
+
+#body-search-input {
+    width: 1fr;
+    height: 1;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+#body-search-results {
+    height: 1fr;
+}
+
+#body-search-results.hidden {
+    display: none;
+}
+
+#body-search-table {
+    height: 1fr;
+}
+
+/* ── Request Replay Panel ── */
+
+ReplayPanel {
+    height: 1fr;
+}
+
+ReplayPanel.hidden {
+    display: none;
+}
+
+#replay-container {
+    height: 1fr;
+}
+
+#replay-header {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#replay-method {
+    width: 10;
+    height: 3;
+    background: #6366f1;
+    color: #ffffff;
+    border: none;
+    text-style: bold;
+    min-width: 0;
+}
+
+#replay-url {
+    width: 1fr;
+    height: 1;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+.send-btn {
+    width: 8;
+    height: 3;
+    background: #22c55e;
+    color: #ffffff;
+    border: none;
+    text-style: bold;
+    min-width: 0;
+}
+
+.close-btn {
+    width: 8;
+    height: 3;
+    background: #475569;
+    color: #e2e8f0;
+    border: none;
+    min-width: 0;
+}
+
+#replay-tabs {
+    height: 3;
+    background: #0f172a;
+    border-bottom: solid #334155;
+    layout: horizontal;
+}
+
+#replay-tabs Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#replay-tabs Button:hover {
+    color: #e2e8f0;
+}
+
+#replay-tabs Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#replay-editor {
+    height: 1fr;
+}
+
+#replay-textarea {
+    height: 1fr;
+    background: #0f172a;
+}
+
+#replay-status {
+    dock: bottom;
+    height: 1;
+    background: #1e293b;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#replay-status Label {
+    color: #94a3b8;
+}
+
+#main-split.hidden {
+    display: none;
+}
+
+/* ── WebSocket Tab ── */
+
+#ws-overview {
+    height: auto;
+    max-height: 4;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    padding: 1 2;
+}
+
+#ws-stats-display {
+    color: #e2e8f0;
+}
+
+#ws-filter-bar {
+    height: 3;
+    background: #1e293b;
+    border-bottom: solid #334155;
+    layout: horizontal;
+    padding: 0 1;
+}
+
+#ws-filter-bar Button {
+    height: 3;
+    background: transparent;
+    color: #64748b;
+    border: none;
+    padding: 0 2;
+    min-width: 0;
+}
+
+#ws-filter-bar Button:hover {
+    color: #e2e8f0;
+    background: transparent;
+}
+
+#ws-filter-bar Button.active {
+    color: #6366f1;
+    text-style: bold underline;
+    background: transparent;
+}
+
+#ws-search {
+    width: 30;
+    height: 1;
+    dock: right;
+    background: #162036;
+    border: none;
+    color: #e2e8f0;
+}
+
+#ws-main {
+    height: 1fr;
+}
+
+#ws-conn-table {
+    height: auto;
+    max-height: 8;
+    min-height: 4;
+}
+
+#ws-frame-table {
+    height: 1fr;
+    min-height: 6;
+}
+
+#ws-detail {
+    height: 12;
+    background: #1e293b;
+    border-top: solid #334155;
+    display: none;
+    padding: 1;
+    overflow-y: auto;
+}
+
+#ws-detail.visible {
+    display: block;
+}
+
+#ws-detail-content {
+    color: #e2e8f0;
+}
+
+#ws-summary {
+    dock: bottom;
+    height: 1;
+    background: #1e293b;
+    border-top: solid #334155;
+    padding: 0 1;
+    layout: horizontal;
+}
+
+#ws-summary Label {
+    color: #94a3b8;
+    margin-right: 3;
+}
+
+/* ── Legend Overlay ── */
+
+#legend-overlay {
+    layer: overlay;
+    dock: right;
+    width: 60;
+    height: auto;
+    max-height: 80%;
+    background: #1e293b;
+    border: solid #334155;
+    padding: 1 2;
+    color: #e2e8f0;
+    margin: 4 2;
+}
+
+#legend-overlay.hidden {
+    display: none;
+}
+
+/* Footer keybindings */
+Footer {
+    background: #1e293b;
+}

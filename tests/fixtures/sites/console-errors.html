@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Errors Test Page</title>
+    <style>
+        body { font-family: monospace; margin: 40px; background: #1a1a2e; color: #e0e0e0; }
+        h1 { color: #e74c3c; }
+        .section { margin: 20px 0; padding: 15px; background: #16213e; border-radius: 4px; }
+        .section h2 { color: #f39c12; margin-top: 0; }
+    </style>
+</head>
+<body>
+    <h1>Console Error Nightmare</h1>
+    <p>Open DevTools console to see the chaos.</p>
+
+    <div class="section">
+        <h2>TypeError</h2>
+        <p>Accessing property of null/undefined</p>
+    </div>
+
+    <div class="section">
+        <h2>ReferenceError</h2>
+        <p>Using undeclared variables</p>
+    </div>
+
+    <div class="section">
+        <h2>Unhandled Promise Rejections</h2>
+        <p>Promises that reject with no catch handler</p>
+    </div>
+
+    <div class="section">
+        <h2>Deprecation Warnings</h2>
+        <p>Using deprecated APIs</p>
+    </div>
+
+    <script>
+        // === TypeError: Cannot read properties of null ===
+        const el = document.getElementById('does-not-exist');
+        el.style.color = 'red';  // TypeError
+    </script>
+
+    <script>
+        // === TypeError: X is not a function ===
+        const obj = { name: 'test' };
+        obj.doSomething();  // TypeError
+    </script>
+
+    <script>
+        // === ReferenceError: variable is not defined ===
+        console.log(undeclaredVariable);  // ReferenceError
+    </script>
+
+    <script>
+        // === SyntaxError via eval ===
+        try {
+            eval('function {{{invalid syntax}}}');
+        } catch(e) {
+            // This one is caught, but let's also throw one that isn't
+        }
+    </script>
+
+    <script>
+        // === Unhandled Promise Rejection ===
+        Promise.reject(new Error('Database connection failed'));
+    </script>
+
+    <script>
+        // === Another unhandled rejection ===
+        async function failingAsyncFunction() {
+            throw new Error('Async operation timed out after 30s');
+        }
+        failingAsyncFunction();  // No await, no catch
+    </script>
+
+    <script>
+        // === Console warnings and errors from application code ===
+        console.error('FATAL: Configuration file not found at /etc/app/config.json');
+        console.error('FATAL: Failed to initialize authentication module');
+        console.warn('DEPRECATED: jQuery.ajax() is deprecated, use fetch() instead');
+        console.warn('WARNING: localStorage quota exceeded, data may be lost');
+        console.warn('WARNING: Mixed content detected in embedded iframe');
+        console.warn('WARNING: Service worker registration failed');
+        console.warn('WARNING: WebSocket connection unstable');
+        console.warn('WARNING: Cookie "session_id" will be blocked in future Chrome versions');
+
+        // === Stack overflow ===
+        function recursiveFunction() {
+            recursiveFunction();
+        }
+        try {
+            recursiveFunction();
+        } catch(e) {
+            console.error('Stack overflow caught:', e.message);
+        }
+
+        // === Type coercion gone wrong (console.log for demonstration) ===
+        console.log('Debug: user object:', { id: undefined, name: null, roles: [] });
+        console.log('Debug: API response was:', undefined);
+    </script>
+
+    <script>
+        // === RangeError ===
+        const arr = new Array(-1);  // RangeError: Invalid array length
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+[
+  {
+    "label": "Default (Playwright)",
+    "ua": "",
+    "category": "default"
+  },
+  {
+    "label": "Chrome 134 Windows",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+    "category": "desktop"
+  },
+  {
+    "label": "Chrome 134 macOS",
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+    "category": "desktop"
+  },
+  {
+    "label": "Chrome 134 Linux",
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+    "category": "desktop"
+  },
+  {
+    "label": "Firefox 135 Windows",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0",
+    "category": "desktop"
+  },
+  {
+    "label": "Firefox 135 macOS",
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:135.0) Gecko/20100101 Firefox/135.0",
+    "category": "desktop"
+  },
+  {
+    "label": "Firefox 135 Linux",
+    "ua": "Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0",
+    "category": "desktop"
+  },
+  {
+    "label": "Safari 18 macOS",
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.3.1 Safari/605.1.15",
+    "category": "desktop"
+  },
+  {
+    "label": "Edge 134 Windows",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0",
+    "category": "desktop"
+  },
+  {
+    "label": "Edge 134 macOS",
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0",
+    "category": "desktop"
+  },
+  {
+    "label": "Chrome 134 Android",
+    "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36",
+    "category": "mobile"
+  },
+  {
+    "label": "Safari iOS 18 iPhone",
+    "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.3 Mobile/15E148 Safari/604.1",
+    "category": "mobile"
+  },
+  {
+    "label": "Safari iOS 18 iPad",
+    "ua": "Mozilla/5.0 (iPad; CPU OS 18_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.3 Mobile/15E148 Safari/604.1",
+    "category": "mobile"
+  },
+  {
+    "label": "Chrome 134 Android Tablet",
+    "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+    "category": "mobile"
+  },
+  {
+    "label": "Firefox 128 ESR",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0",
+    "category": "desktop"
+  },
+  {
+    "label": "Chrome 134 ChromeOS",
+    "ua": "Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+    "category": "desktop"
+  },
+  {
+    "label": "Googlebot 2.1",
+    "ua": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "category": "bot"
+  },
+  {
+    "label": "Googlebot Mobile",
+    "ua": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "category": "bot"
+  },
+  {
+    "label": "Bingbot 2.0",
+    "ua": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+    "category": "bot"
+  },
+  {
+    "label": "YandexBot 3.0",
+    "ua": "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+    "category": "bot"
+  }
+]

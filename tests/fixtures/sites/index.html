@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshot Test Suite</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #1a1a2e; color: #e0e0e0; }
+        h1 { color: #6366f1; }
+        a { color: #818cf8; }
+        .card { background: #16213e; padding: 1rem 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 3px solid #6366f1; }
+        .card h3 { margin-top: 0; }
+        .card p { color: #94a3b8; margin-bottom: 0; }
+    </style>
+</head>
+<body>
+    <h1>Troubleshot Test Sites</h1>
+    <p>Each page below is intentionally broken in a specific way for testing diagnostic tools.</p>
+
+    <div class="card">
+        <h3><a href="/slow.html">Slow Page</a></h3>
+        <p>Blocking JS, slow API calls, layout shifts, 404 resources — tests performance diagnostics.</p>
+    </div>
+
+    <div class="card">
+        <h3><a href="/broken-layout.html">Broken Layout</a></h3>
+        <p>Missing viewport, z-index hell, overflow, images without dimensions — tests DOM/CSS diagnostics.</p>
+    </div>
+
+    <div class="card">
+        <h3><a href="/api-failures.html">API Failures</a></h3>
+        <p>404s, 500s, CORS, timeouts, DNS failures — tests network diagnostics.</p>
+    </div>
+
+    <div class="card">
+        <h3><a href="/console-errors.html">Console Errors</a></h3>
+        <p>TypeError, ReferenceError, RangeError, unhandled promise rejections — tests console diagnostics.</p>
+    </div>
+
+    <div class="card">
+        <h3><a href="/security-issues.html">Security Issues</a></h3>
+        <p>Mixed content, CSP violations, insecure forms — tests security diagnostics.</p>
+    </div>
+
+    <div class="card">
+        <h3><a href="/accessibility-nightmare.html">Accessibility Nightmare</a></h3>
+        <p>Missing lang/title, no landmarks, bad contrast, unlabeled forms — tests accessibility diagnostics.</p>
+    </div>
+</body>
+</html>

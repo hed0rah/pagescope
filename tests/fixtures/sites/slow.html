@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slow Test Page</title>
+    <style>
+        /* Render-blocking inline styles (intentional) */
+        body { font-family: sans-serif; margin: 40px; background: #f5f5f5; }
+        .hero { width: 100%; height: 400px; background: #333; color: #fff;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 48px; }
+        .content { margin-top: 20px; }
+    </style>
+    <!-- Render-blocking external CSS that doesn't exist (will 404) -->
+    <link rel="stylesheet" href="/nonexistent-styles.css">
+</head>
+<body>
+    <div class="hero">Slow Page Hero (LCP element)</div>
+    <div class="content">
+        <h1>Intentionally Slow Page</h1>
+        <p>This page has multiple performance problems.</p>
+        <div id="api-result">Loading data...</div>
+        <div id="delayed-content"></div>
+    </div>
+
+    <!-- Long blocking script (simulates heavy JS) -->
+    <script>
+        // Synchronous blocking work — causes TBT
+        (function blockMainThread() {
+            const start = Date.now();
+            while (Date.now() - start < 200) {
+                Math.random() * Math.random();
+            }
+        })();
+    </script>
+
+    <!-- Fake API call that times out -->
+    <script>
+        fetch('https://httpstat.us/200?sleep=5000')
+            .then(r => r.text())
+            .then(data => {
+                document.getElementById('api-result').textContent = data;
+            })
+            .catch(err => {
+                document.getElementById('api-result').textContent = 'API failed: ' + err.message;
+            });
+    </script>
+
+    <!-- Layout shift: inject content after delay without reserving space -->
+    <script>
+        setTimeout(() => {
+            const div = document.getElementById('delayed-content');
+            div.style.height = '300px';
+            div.style.background = '#e74c3c';
+            div.style.color = '#fff';
+            div.style.padding = '20px';
+            div.style.fontSize = '24px';
+            div.textContent = 'This content was injected late, causing a layout shift!';
+        }, 500);
+    </script>
+
+    <!-- Large unoptimized image (will 404 but generates the request) -->
+    <img src="/huge-unoptimized-image.png" width="1920" height="1080" alt="Large image">
+
+    <!-- Multiple unused scripts -->
+    <script src="/analytics-bundle.js"></script>
+    <script src="/tracking-pixel.js"></script>
+    <script src="/chat-widget.js"></script>
+</body>
+</html>

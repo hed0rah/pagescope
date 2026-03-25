@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Issues Test Page</title>
+    <!-- Intentionally weak CSP that still generates violations -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https:;">
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        .warning { background: #fff3cd; border: 1px solid #ffc107; padding: 15px; margin: 10px 0; border-radius: 4px; }
+        .danger { background: #f8d7da; border: 1px solid #dc3545; padding: 15px; margin: 10px 0; border-radius: 4px; }
+        h2 { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <h1>Security Issues Test Page</h1>
+
+    <div class="danger">
+        <h2>Mixed Content</h2>
+        <p>Loading resources over HTTP from an HTTPS page:</p>
+        <!-- Mixed content: HTTP image from HTTPS page -->
+        <img src="http://via.placeholder.com/150x50?text=HTTP+Image" alt="Mixed content image">
+        <!-- Mixed content: HTTP script (will be blocked) -->
+        <script src="http://example.com/insecure-script.js"></script>
+    </div>
+
+    <div class="warning">
+        <h2>CSP Violations</h2>
+        <p>These will trigger Content-Security-Policy violations:</p>
+    </div>
+
+    <div class="danger">
+        <h2>Insecure Form</h2>
+        <!-- Form posting to HTTP endpoint -->
+        <form action="http://example.com/login" method="POST">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Login (insecure!)</button>
+        </form>
+    </div>
+
+    <div class="warning">
+        <h2>External Resources</h2>
+        <p>Loading scripts and resources from many external domains:</p>
+    </div>
+
+    <script>
+        // CSP violation: trying to load script from blocked origin
+        const s = document.createElement('script');
+        s.src = 'https://evil-cdn.example.com/malware.js';
+        document.head.appendChild(s);
+
+        // CSP violation: trying to use eval (not allowed without 'unsafe-eval')
+        try {
+            eval('console.log("eval executed")');
+        } catch(e) {
+            console.warn('CSP blocked eval:', e.message);
+        }
+
+        // CSP violation: trying to fetch from blocked origin
+        fetch('https://blocked-api.example.com/data')
+            .catch(err => console.warn('CSP blocked fetch:', err.message));
+
+        // Insecure cookie setting (no Secure flag, no SameSite)
+        document.cookie = "session_token=abc123; path=/";
+        document.cookie = "user_prefs=dark_mode; path=/";
+
+        // Sensitive data in URL (bad practice)
+        history.pushState({}, '', '?api_key=sk_live_12345&token=secret_token');
+
+        // localStorage with sensitive data (bad practice)
+        localStorage.setItem('auth_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.fake');
+        localStorage.setItem('credit_card', '4111-1111-1111-1111');
+
+        // Log sensitive data to console (bad practice)
+        console.log('User password hash:', 'sha256:abcdef123456');
+        console.log('API Key:', 'sk_live_extremely_secret_key_12345');
+    </script>
+
+    <!-- External resources from various domains -->
+    <script src="https://cdn.example.com/analytics.js"></script>
+    <script src="https://tracking.example.com/pixel.js"></script>
+    <link rel="stylesheet" href="https://fonts.example.com/comic-sans.css">
+
+    <!-- iframe from different origin -->
+    <iframe src="http://example.com" width="300" height="200" title="Insecure iframe"></iframe>
+</body>
+</html>

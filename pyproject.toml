@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pagescope"
+version = "0.2.0"
+description = "Chrome DevTools in your terminal"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "PageScope Contributors" },
+]
+keywords = ["devtools", "chrome", "cdp", "network", "tui", "terminal", "debugging", "web"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Software Development :: Testing",
+    "Typing :: Typed",
+]
+dependencies = [
+    "playwright>=1.40",
+    "pydantic>=2.0",
+    "fastmcp>=2.0",
+    "typer>=0.12",
+    "rich>=13.0",
+    "textual>=0.50",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.4",
+    "mypy>=1.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/hed0rah/pagescope"
+Repository = "https://github.com/hed0rah/pagescope"
+Issues = "https://github.com/hed0rah/pagescope/issues"
+
+[project.scripts]
+pagescope = "pagescope.cli.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pagescope"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 99

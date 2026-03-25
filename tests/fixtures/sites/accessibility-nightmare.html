@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html><!-- Missing lang attribute -->
+<head>
+    <meta charset="UTF-8">
+    <!-- Missing viewport meta -->
+    <title></title><!-- Empty title -->
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        /* Terrible contrast */
+        .low-contrast { color: #ccc; background: #ddd; padding: 20px; }
+        .also-bad { color: #777; background: #888; padding: 10px; }
+        /* Focus styles removed */
+        *:focus { outline: none !important; }
+        /* Small click targets */
+        .tiny-button { padding: 2px 4px; font-size: 8px; }
+        /* Hidden content that's not actually hidden from screen readers */
+        .visually-hidden-wrong { font-size: 0; color: transparent; }
+        /* Auto-playing animation */
+        @keyframes flash { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+        .flashing { animation: flash 0.3s infinite; color: red; font-size: 24px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <!-- No skip navigation link -->
+    <!-- No landmarks (header, nav, main, footer) -->
+
+    <div style="background:#333;color:#fff;padding:20px;">
+        <div style="font-size:24px;font-weight:bold;">Site Name</div><!-- Should be h1 -->
+        <div>
+            <!-- Links with no text or bad text -->
+            <a href="/home"><img src="/icon-home.png"></a><!-- img has no alt -->
+            <a href="/about"></a><!-- Empty link -->
+            <a href="/more">Click here</a><!-- Non-descriptive link text -->
+            <a href="/info">Read more</a><!-- Non-descriptive link text -->
+        </div>
+    </div>
+
+    <!-- Heading hierarchy is broken -->
+    <h3>Welcome</h3><!-- Skipped h1 and h2 -->
+    <h1>This should have been first</h1>
+    <h5>A subsection</h5><!-- Skipped h2, h3, h4 -->
+
+    <!-- Low contrast text -->
+    <div class="low-contrast">
+        <p>Can you read this? Light gray text on slightly lighter gray background.</p>
+    </div>
+    <div class="also-bad">
+        <p>This is also nearly impossible to read.</p>
+    </div>
+
+    <!-- Images without alt text -->
+    <img src="/photo1.jpg">
+    <img src="/photo2.jpg">
+    <img src="/photo3.jpg">
+    <img src="/decorative-border.png"><!-- Should have alt="" for decorative -->
+    <img src="/chart-sales-2024.png"><!-- Complex image needs description -->
+
+    <!-- Form with no labels -->
+    <div style="margin:20px 0;">
+        <h3>Contact Form</h3>
+        <input type="text" placeholder="Name"><!-- No label, placeholder is not a label -->
+        <input type="email" placeholder="Email">
+        <input type="tel"><!-- No label, no placeholder -->
+        <select><!-- No label -->
+            <option value="">Choose...</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+        </select>
+        <textarea placeholder="Message"></textarea><!-- No label -->
+        <button class="tiny-button">Go</button><!-- Tiny click target -->
+    </div>
+
+    <!-- Table without headers or caption -->
+    <table border="1">
+        <tr><td>John</td><td>Doe</td><td>john@email.com</td></tr>
+        <tr><td>Jane</td><td>Smith</td><td>jane@email.com</td></tr>
+    </table>
+
+    <!-- Div used as button (not keyboard accessible) -->
+    <div onclick="alert('clicked')" style="background:#3498db;color:#fff;padding:10px;cursor:pointer;display:inline-block;">
+        I look like a button but I'm a div
+    </div>
+
+    <!-- Auto-playing content -->
+    <div class="flashing">⚠ FLASHING CONTENT — SEIZURE WARNING ⚠</div>
+
+    <!-- Tabindex mess -->
+    <input type="text" tabindex="5" placeholder="Tab order 5">
+    <input type="text" tabindex="2" placeholder="Tab order 2">
+    <input type="text" tabindex="8" placeholder="Tab order 8">
+    <input type="text" tabindex="1" placeholder="Tab order 1">
+
+    <!-- ARIA misuse -->
+    <div role="button">Not actually a button (no keyboard handler)</div>
+    <div aria-hidden="true">
+        <a href="/important">This important link is hidden from screen readers!</a>
+    </div>
+    <div role="checkbox">Not a real checkbox</div>
+    <p aria-live="assertive">This paragraph rudely interrupts screen readers constantly</p>
+
+    <!-- Visually hidden but wrong technique -->
+    <p class="visually-hidden-wrong">This text is "hidden" but wrong — screen readers might still announce font-size:0 content</p>
+
+    <script>
+        // Keyboard trap: once focused, you can't tab out
+        const trap = document.createElement('input');
+        trap.placeholder = 'Keyboard trap - you cannot tab out!';
+        trap.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault(); // Trapped!
+            }
+        });
+        document.body.appendChild(trap);
+
+        // Auto-focus steals focus without user action
+        trap.focus();
+
+        // Dynamic content with no aria-live announcement
+        setTimeout(() => {
+            const notice = document.createElement('div');
+            notice.textContent = 'Important: Your session expires in 30 seconds!';
+            notice.style.cssText = 'background:red;color:white;padding:20px;margin:20px 0;';
+            document.body.insertBefore(notice, document.body.firstChild);
+            // No aria-live region, screen readers won't announce this
+        }, 1000);
+    </script>
+</body>
+</html>
