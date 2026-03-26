@@ -180,6 +180,7 @@ class NetworkTab(Widget):
         self._body_search_callback: Any = None  # Set by app
         self._replay_callback: Any = None  # Set by app
         self._theme_colors: dict[str, str] | None = None  # Set by app on theme change
+        self._fcp_ms: float | None = None  # Set by app when perf data arrives
 
     def compose(self) -> ComposeResult:
         # filter bar
@@ -357,19 +358,42 @@ class NetworkTab(Widget):
         else:
             mid = f"{mid_ms:.0f}ms"
 
-        # build a 50-char ruler: "0ms ──────── 250ms ──────── 500ms"
+        # build a 50-char ruler with optional FCP marker
         w = 50
+        from rich.text import Text as RichText
+
+        # place FCP marker if we have data
+        fcp_pos = -1
+        fcp_label = ""
+        if self._fcp_ms and self._fcp_ms > 0 and span_ms > 0:
+            fcp_frac = self._fcp_ms / span_ms
+            if 0.05 < fcp_frac < 0.95:  # only show if not at the edges
+                fcp_pos = int(fcp_frac * w)
+                if self._fcp_ms >= 1000:
+                    fcp_label = f"FCP {self._fcp_ms / 1000:.1f}s"
+                else:
+                    fcp_label = f"FCP {self._fcp_ms:.0f}ms"
+
         left_label = "0"
-        # distribute labels across the width
         gap1 = w // 2 - len(left_label) - len(mid) // 2
         gap2 = w - (len(left_label) + gap1 + len(mid)) - len(total)
-        ruler = left_label + "─" * max(1, gap1) + mid + "─" * max(1, gap2) + total
+        ruler_str = left_label + "─" * max(1, gap1) + mid + "─" * max(1, gap2) + total
+
+        ruler = RichText(ruler_str)
+
+        # overlay FCP marker
+        if fcp_pos >= 0 and fcp_pos + len(fcp_label) <= len(ruler_str):
+            # place a ▏ tick mark and label
+            mark = "▏" + fcp_label
+            pos = max(0, fcp_pos)
+            end = min(len(ruler_str), pos + len(mark))
+            ruler = RichText(ruler_str[:pos] + mark + ruler_str[pos + len(mark):])
+            ruler.stylize("bold green", pos, pos + len(mark))
 
         try:
             table = self.query_one("#request-table", DataTable)
             col = table.columns[self._waterfall_col_key]
-            from rich.text import Text as RichText
-            col.label = RichText(ruler)
+            col.label = ruler
         except Exception:
             pass
 
@@ -520,6 +544,7 @@ class NetworkTab(Widget):
         self._total_bytes = 0
         self._page_start = 0
         self._page_end = 0
+        self._fcp_ms = None
         table = self.query_one("#request-table", DataTable)
         table.clear()
         self._update_summary()
